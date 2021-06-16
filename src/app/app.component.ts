@@ -1,4 +1,6 @@
+import { MessageService } from './services/message.service';
 import { Component } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,24 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'communicate-components-with-observable';
+  messages: any[] = [];
+  subscription: Subscription;
+
+  constructor(
+    private messageService: MessageService
+  ) {
+    this.subscription = this.messageService.onMessage().subscribe(
+      message => {
+        if (message) {
+          this.messages.push(message);
+        } else {
+          this.messages = [];
+        }
+      }
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }

@@ -1,4 +1,13 @@
 <div class="container">
   <h2>Communicate Components With Observable</h2>
   <hr>
+  <div class="card">
+    <div class="card-body">
+      <div *ngFor="let message of messages" class="alert alert-success">
+        {{message.text}}
+      </div>
+      <hr>
+      <app-home></app-home>
+    </div>
+  </div>
 </div>
